@@ -2,6 +2,13 @@
 
 ## Overview
 This project is a prototype for **Smart Ocean Networks**, focusing on processing real Automatic Identification System (AIS) data to evaluate vessel collision risks.
+## 📸 Project Showcase
+
+<p align="center">
+  <img src="docs/iot_terminal.png" width="32%" />
+  <img src="CBF_Demo/cbf_result.png" width="32%" />
+  <img src="docs/radar_calculation_test.png" width="32%" />
+</p>
 
 ## Features
 - **Data Processing:** Uses Python (Pandas) to clean and filter 300,000+ AIS records (filtering out stationary vessels with SOG < 5 knots).
