@@ -15,3 +15,10 @@ The algorithm successfully identified a specific encounter between two vessels (
 - Integrate TCPA (Time to Closest Point of Approach) calculations.
 - Explore deploying this lightweight risk assessment on **Edge Computing nodes** under limited maritime bandwidth.
 - Combine **Control Barrier Functions (CBF)** with DCPA constraints for autonomous ship safety control.
+## Part 2: CBF-based Safety Control (CBF_Demo)
+
+To address the collision risks identified by the AIS data analysis, I further explored safety control strategies using **Control Barrier Functions (CBF)**.
+
+I implemented a CBF-QP (Quadratic Programming) safety filter in Python (located in the `CBF_Demo` folder). The simulation demonstrates how a vessel (the blue trajectory) automatically corrects its nominal path to avoid a danger zone (red circle) and safely reaches its target.
+
+**Future integration:** The next step is to combine the DCPA-based risk assessment logic with the CBF safety filter and deploy this lightweight computation onto **embedded edge computing nodes** for autonomous maritime navigation.
