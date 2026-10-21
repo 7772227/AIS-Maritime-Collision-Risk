@@ -1,50 +1,56 @@
-# AIS Maritime Collision Risk Analysis
+# AIS Maritime Collision Risk Analysis & Edge Computing Prototype
 
 ## Overview
-This project is a prototype for **Smart Ocean Networks**, focusing on processing real Automatic Identification System (AIS) data to evaluate vessel collision risks.
-## 📸 Project Showcase
+This project is a prototype for **Smart Ocean Networks**, focusing on processing real Automatic Identification System (AIS) data to evaluate vessel collision risks, integrating Control Barrier Functions (CBF) for safety control, and simulating real-time edge computing for maritime IoT.
+
+## Project Showcase
 
 <p align="center">
-  <img src="docs/iot_terminal.png" width="32%" />
-  <img src="CBF_Demo/cbf_result.png" width="32%" />
-  <img src="docs/radar_calculation_test.png" width="32%" />
+  <img src="docs/iot_terminal.png" width="32%" alt="Edge Terminal" />
+  <img src="CBF_Demo/cbf_result.png" width="32%" alt="CBF Safety Filter" />
+  <img src="docs/radar_calculation_test.png" width="32%" alt="TCPA Calculation" />
 </p>
 
-## Features
-- **Data Processing:** Uses Python (Pandas) to clean and filter 300,000+ AIS records (filtering out stationary vessels with SOG < 5 knots).
-- **Trajectory Visualization:** Uses Folium to generate interactive maps showing vessel paths ordered by timestamp.
-- **Collision Risk Detection:** Implements the Haversine formula to calculate the **DCPA (Distance to Closest Point of Approach)** between moving vessels, identifying potential close encounters.
+## Key Features
+1.Data Processing & Visualization:** Uses Python (Pandas, Folium) to clean 300,000+ real AIS records (filtering out stationary vessels with SOG < 5 knots) and generates interactive maps ordered by timestamp.
+2.DCPA Collision Risk Detection:** Implements the Haversine formula to calculate the **DCPA (Distance to Closest Point of Approach)** between moving vessels, successfully identifying a close encounter (DCPA: 7.23 nm) between two real vessels.
+3.CBF-based Safety Control (CBF_Demo):** Implements a CBF-QP safety filter to demonstrate how a vessel automatically corrects its nominal path to avoid a danger zone, ensuring mathematical safety.
+4.Edge Node Real-time Simulation:** Simulates how a shipboard terminal sequentially processes real-time AIS data, triggers on-the-fly warnings, and predicts **TCPA (Time to Closest Point of Approach)** using vector-based radar plotting logic.
 
-## Test Result
-The algorithm successfully identified a specific encounter between two vessels (MMSI: 319706000 and 244561000) with a closest distance (DCPA) of 7.23 nautical miles. (See `collision_risk.html` for the map).
+## Module Details
 
-## Future Work
-- Integrate TCPA (Time to Closest Point of Approach) calculations.
-- Explore deploying this lightweight risk assessment on **Edge Computing nodes** under limited maritime bandwidth.
-- Combine **Control Barrier Functions (CBF)** with DCPA constraints for autonomous ship safety control.
-## Part 2: CBF-based Safety Control (CBF_Demo)
+### Part 1: AIS Data Processing & DCPA Calculation
+The algorithm cleans 300,000+ historical records and uses the Haversine formula to compute DCPA, identifying specific historical encounters. *(See `collision_risk.html` for the generated map).*
 
-To address the collision risks identified by the AIS data analysis, I further explored safety control strategies using **Control Barrier Functions (CBF)**.
+### Part 2: CBF-based Safety Control (`CBF_Demo/`)
+To address detected collision risks, I implemented a Control Barrier Function (CBF-QP) safety filter. The simulation demonstrates a vessel (blue trajectory) correcting its path to avoid a danger zone (red circle). More mathematical details can be found in `CBF_Demo/README.md`.
 
-I implemented a CBF-QP (Quadratic Programming) safety filter in Python (located in the `CBF_Demo` folder). The simulation demonstrates how a vessel (the blue trajectory) automatically corrects its nominal path to avoid a danger zone (red circle) and safely reaches its target.
+### Part 3: IoT Real-time Stream Simulation (`src/iot_stream_sim.py`)
+Simulates an **Edge Node** receiving AIS data sequentially via VHF. The script calculates dynamic distances on the fly and triggers warnings when the distance falls below the safety threshold (8 nm), demonstrating the feasibility of lightweight edge computing.
 
-**Future integration:** The next step is to combine the DCPA-based risk assessment logic with the CBF safety filter and deploy this lightweight computation onto **embedded edge computing nodes** for autonomous maritime navigation.
-## Part 3: IoT Real-time Stream Simulation (Edge Node)
+### Part 4: TCPA Calculation & Radar Plotting (`src/tcpa_calculator.py`)
+Beyond DCPA, I implemented the standard **Maritime Radar Plotting** algorithm. By decomposing SOG and COG into relative velocity vectors, the system predicts the **TCPA** in real-time. *(If vessels are on a collision course, it predicts DCPA of 0.00 nm and triggers a severe warning).*
 
-To simulate real-time data flow in a maritime IoT environment, I developed `iot_stream_sim.py`. Instead of processing batch historical data, it simulates how an **Edge Node** (e.g., a shipboard terminal) receives AIS data sequentially from VHF receivers.
-
-The script calculates the dynamic distance between two vessels on the fly and triggers warnings when the distance falls below the safety threshold (8 nautical miles). This demonstrates the feasibility of deploying lightweight collision risk algorithms for real-time edge computing. 
-*(See `iot_terminal.png` for the terminal simulation output)*
-## Part 4: TCPA Calculation & Radar Plotting Logic
-
-Beyond just calculating the current distance or historical DCPA, I implemented the standard **Maritime Radar Plotting** algorithm (vector-based) in `tcpa_calculator.py`. 
-
-By decomposing Speed Over Ground (SOG) and Course Over Ground (COG) into relative velocity vectors, the system can predict the **Time to Closest Point of Approach (TCPA)** in real-time. As shown in the test (`radar_calculation_test.png`), if two vessels are on a collision course, the algorithm accurately predicts a DCPA of 0.00 nm and a TCPA of 13.3 minutes, triggering a severe collision risk warning.
 ## How to Run
-1. `pip install -r requirements.txt`
-2. 下载 AIS 数据并保存为 `data7.csv` 放在根目录
-3. 依次运行：
-   - `python src/test_ais.py`       # DCPA 检测
-   - `python src/tcpa_calculator.py` # 雷达标绘测试
-   - `python src/iot_stream_sim.py`  # 实时边缘终端模拟
-   - `python CBF_Demo/cbf_demo.py`   # CBF 安全滤波动画
+
+1. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+2.Download the AIS dataset (e.g., data7.csv) and place it in the root directory of the project.
+3.Run the modules in the following order:
+# 1. DCPA Collision Risk Detection
+python src/test_ais.py
+
+# 2. Radar Plotting & TCPA Calculation
+python src/tcpa_calculator.py
+
+# 3. IoT Edge Node Real-time Simulation
+python src/iot_stream_sim.py
+
+# 4. CBF Safety Filter Animation
+python CBF_Demo/cbf_demo.py
+
+##Future Work
+1.Upgrade the CBF model to account for vessel inertia and implement High-Order CBF (HOCBF).
+2.Integrate COLREGs (maritime collision rules) into the CBF-QP safety constraints.
+3.Deploy the CBF-QP algorithm on embedded edge nodes and evaluate robustness under AIS communication delays.
