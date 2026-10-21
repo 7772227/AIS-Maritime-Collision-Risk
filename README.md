@@ -22,3 +22,9 @@ To address the collision risks identified by the AIS data analysis, I further ex
 I implemented a CBF-QP (Quadratic Programming) safety filter in Python (located in the `CBF_Demo` folder). The simulation demonstrates how a vessel (the blue trajectory) automatically corrects its nominal path to avoid a danger zone (red circle) and safely reaches its target.
 
 **Future integration:** The next step is to combine the DCPA-based risk assessment logic with the CBF safety filter and deploy this lightweight computation onto **embedded edge computing nodes** for autonomous maritime navigation.
+## Part 3: IoT Real-time Stream Simulation (Edge Node)
+
+To simulate real-time data flow in a maritime IoT environment, I developed `iot_stream_sim.py`. Instead of processing batch historical data, it simulates how an **Edge Node** (e.g., a shipboard terminal) receives AIS data sequentially from VHF receivers.
+
+The script calculates the dynamic distance between two vessels on the fly and triggers warnings when the distance falls below the safety threshold (8 nautical miles). This demonstrates the feasibility of deploying lightweight collision risk algorithms for real-time edge computing. 
+*(See `iot_terminal.png` for the terminal simulation output)*
