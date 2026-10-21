@@ -40,3 +40,11 @@ The script calculates the dynamic distance between two vessels on the fly and tr
 Beyond just calculating the current distance or historical DCPA, I implemented the standard **Maritime Radar Plotting** algorithm (vector-based) in `tcpa_calculator.py`. 
 
 By decomposing Speed Over Ground (SOG) and Course Over Ground (COG) into relative velocity vectors, the system can predict the **Time to Closest Point of Approach (TCPA)** in real-time. As shown in the test (`radar_calculation_test.png`), if two vessels are on a collision course, the algorithm accurately predicts a DCPA of 0.00 nm and a TCPA of 13.3 minutes, triggering a severe collision risk warning.
+## How to Run
+1. `pip install -r requirements.txt`
+2. 下载 AIS 数据并保存为 `data7.csv` 放在根目录
+3. 依次运行：
+   - `python src/test_ais.py`       # DCPA 检测
+   - `python src/tcpa_calculator.py` # 雷达标绘测试
+   - `python src/iot_stream_sim.py`  # 实时边缘终端模拟
+   - `python CBF_Demo/cbf_demo.py`   # CBF 安全滤波动画
