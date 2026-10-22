@@ -68,7 +68,7 @@ else:
     end_idx = min(len(merged), target_idx + 10)
     stream_data = merged.iloc[start_idx:end_idx]
     
-    print("✅ 目标锁定！开始边缘节点实时计算...")
+    print(" 目标锁定！开始边缘节点实时计算...")
     time.sleep(1)
 
     for _, row in stream_data.iterrows():
@@ -85,24 +85,24 @@ else:
         current_dist = np.sqrt(((row['LON_2']-row['LON_1'])*60*np.cos(lat_avg))**2 + ((row['LAT_2']-row['LAT_1'])*60)**2)
         
         print("="*50)
-        print(" 📡 船舶智能避碰边缘计算终端 (Edge Node)")
+        print("  船舶智能避碰边缘计算终端 (Edge Node)")
         print("="*50)
-        print(f" ⏱️  时间: {row['BaseDateTime']}")
-        print(f" 🚢 船A (MMSI: {target_mmsi_1}): 航速 {row['SOG_1']} 节, 航向 {row['COG_1']}°")
-        print(f" 🚢 船B (MMSI: {target_mmsi_2}): 航速 {row['SOG_2']} 节, 航向 {row['COG_2']}°")
+        print(f"  时间: {row['BaseDateTime']}")
+        print(f"  船A (MMSI: {target_mmsi_1}): 航速 {row['SOG_1']} 节, 航向 {row['COG_1']}°")
+        print(f"  船B (MMSI: {target_mmsi_2}): 航速 {row['SOG_2']} 节, 航向 {row['COG_2']}°")
         print("-" * 50)
-        print(f" 📏 当前距离 (Current Dist): {current_dist:.2f} 海里")
-        print(f" 🎯 预测最近距离 (DCPA): {dcpa:.2f} 海里")
-        print(f" ⏳ 预测到达时间 (TCPA): {tcpa:.1f} 分钟")
+        print(f"  当前距离 (Current Dist): {current_dist:.2f} 海里")
+        print(f"  预测最近距离 (DCPA): {dcpa:.2f} 海里")
+        print(f"  预测到达时间 (TCPA): {tcpa:.1f} 分钟")
         
         # 结合 DCPA 和 TCPA 进行预警（这才是最专业的！）
         if dcpa < 1.0 and tcpa < 20.0:
-            print("\n 🚨🚨🚨 [碰撞警报] DCPA < 1海里 且 TCPA < 20分钟！")
-            print(" ⚙️ 触发 CBF-QP 安全控制，启动避碰机动！")
+            print("\n 🚨 [碰撞警报] DCPA < 1海里 且 TCPA < 20分钟！")
+            print(" [Control Interface] Safety-control module (e.g., CBF) would be activated.")
         elif dcpa < 3.0:
-            print("\n ⚠️  [警告] 预测会遇距离过近，持续监控。")
+            print("\n  ⚠️ [警告] 预测会遇距离过近，持续监控。")
         else:
-            print("\n ✅  [安全] 航行状态安全。")
+            print("\n  ✅️ [安全] 航行状态安全。")
             
         print("="*50)
         time.sleep(0.5) # 快速刷新
