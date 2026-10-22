@@ -32,7 +32,7 @@ Uses Python (Pandas) to clean 300,000+ AIS records (filtering stationary vessels
 Generates interactive maps using Folium.
 Scientific Note: This module calculates the Observed Minimum Separation from historical AIS trajectories, not the predictive DCPA. It synchronizes historical timestamps to identify past close encounters.
 
-### Part 2:Predictive DCPA/TCPA & Radar Plotting (src/tcpa_calculator.py)
+### Part 2: Predictive DCPA/TCPA & Radar Plotting (src/tcpa_calculator.py)
 Implements the standard Maritime Radar Plotting algorithm.
 Uses relative-motion vectors derived from SOG and COG to predict the true DCPA (Distance at Closest Point of Approach) and TCPA (Time to Closest Point of Approach).
 
@@ -51,16 +51,15 @@ Shows how a vessel automatically corrects its path to avoid a static obstacle. (
 1. Install the required dependencies:
    ```bash
    pip install -r requirements.txt
-2.Download the AIS dataset (e.g., data7.csv) and place it in the root directory of the project.
-3.Run the modules in the following order:
+2. Download the AIS dataset (e.g., data7.csv) and place it in the root directory of the project.
+3. Run the modules:
 python src/test_ais.py
 python src/tcpa_calculator.py
 python src/iot_stream_sim.py
 python CBF_Demo/cbf_demo.py
-python CBF_Demo/cbf_demo.py
 
-##Future Work
-1.Edge vs. Cloud Baseline: Conduct experiments comparing communication overhead and end-to-end warning latency between local edge processing and cloud-based processing under simulated maritime network constraints .
-2.Vessel Dynamics & HOCBF: Upgrade the CBF model to account for vessel inertia (double integrator) and implement High-Order CBF (HOCBF).
-3.COLREGs Integration: Encode maritime right-of-way rules as safety constraints within the CBF-QP framework.
-4.IoT Messaging: Transition the stream simulation to a real MQTT-based publisher/subscriber architecture.
+## Future Work
+1. Edge vs. Cloud Baseline: Conduct experiments comparing communication overhead and end-to-end warning latency between local edge processing and cloud-based processing under simulated maritime network constraints .
+2. Vessel Dynamics & HOCBF: Upgrade the CBF model to account for vessel inertia (double integrator) and implement High-Order CBF (HOCBF).
+3. COLREGs Integration: Encode maritime right-of-way rules as safety constraints within the CBF-QP framework.
+4. IoT Messaging: Transition the stream simulation to a real MQTT-based publisher/subscriber architecture.
