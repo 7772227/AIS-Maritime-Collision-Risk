@@ -68,7 +68,7 @@ else:
                 folium.PolyLine(ship2[['LAT', 'LON']].values, color='red', weight=3, tooltip=f"船2: {mmsi2}").add_to(m)
                 folium.Marker(
                     [min_row['LAT_1'], min_row['LON_1']], 
-                    popup=f"min_separation: {min_separation:.2f} nm", icon=folium.Icon(color='orange', icon='warning-sign')
+                    popup=f"Observed Min Separation: {min_separation:.2f} nm", icon=folium.Icon(color='orange', icon='warning-sign')
                 ).add_to(m)
                 
                 m.save("collision_risk.html")
