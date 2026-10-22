@@ -11,18 +11,32 @@ Can lightweight AIS-based vessel collision-risk assessment be performed at marit
   <img src="docs/radar_calculation_test.png" width="32%" alt="TCPA Calculation" />
 </p>
 
-## Architecture & Workflow
+## System Architecture
+
+```
 Maritime IoT Scenario
-      ↓
-AIS Data Stream (Replay)
-      ↓
+        │
+        ▼
+AIS Data Stream (Historical Replay)
+        │
+        ▼
 Shipboard / Near-shore Edge Node
-      ↓
-Real-time Risk Assessment (Vector-based DCPA / TCPA)
-      ↓
-Local Decision (Risk Alerts)
-      ↓
-[Optional] Control Interface (CBF Safety Filter)
+        │
+        ▼
+Real-time Risk Assessment
+(Vector-based DCPA / TCPA)
+        │
+        ▼
+Local Risk Decision
+        │
+        ├── Safe ──→ Continue Monitoring
+        │
+        └── Risk ──→ Generate Local Alert
+                           │
+                           ▼
+                 Optional Control Interface
+                   (CBF Proof of Concept)
+```
 (Note: This project is a prototype for Smart Ocean Networks, focusing on processing real AIS data to evaluate vessel collision risks and simulate edge-side processing.)
 
 ## Features & Modules
@@ -49,9 +63,10 @@ Shows how a vessel automatically corrects its path to avoid a static obstacle. (
 ## How to Run
 
 1. Install the required dependencies:
+
    ```bash
    pip install -r requirements.txt
-2. Download the AIS dataset (e.g., data7.csv) and place it in the root directory of the project.
+2. Download the AIS dataset (data7.csv) and place it in the project root directory.
 3. Run the modules:
 python src/test_ais.py
 python src/tcpa_calculator.py
