@@ -1,7 +1,10 @@
-# AIS Maritime Collision Risk Analysis & Edge Computing Prototype
+# AIS-Based Maritime Edge Computing for Real-Time Vessel Collision Risk Assessment
+
+## Research Question
+Can lightweight AIS-based vessel collision-risk assessment be performed at maritime edge nodes to reduce communication overhead and warning latency under bandwidth-constrained maritime networks?
 
 ## Overview
-This project is a prototype for **Smart Ocean Networks**, focusing on processing real Automatic Identification System (AIS) data to evaluate vessel collision risks, integrating Control Barrier Functions (CBF) for safety control, and simulating real-time edge computing for maritime IoT.
+This project is a prototype for Smart Ocean Networks, focusing on processing real Automatic Identification System (AIS) data to evaluate vessel collision risks, integrating Control Barrier Functions (CBF) for safety control, and simulating real-time edge computing for maritime IoT.
 
 ## Project Showcase
 
