@@ -98,7 +98,7 @@ else:
         # 结合 DCPA 和 TCPA 进行预警
         if dcpa < 1.0 and tcpa < 20.0:
             print("\n 🚨 [碰撞警报] DCPA < 1海里 且 TCPA < 20分钟！")
-            print(" [Control Interface] Safety-control module (e.g., CBF) would be activated.")
+            print(" [Risk Alert] Collision-risk threshold exceeded. Safety-control interface can be triggered.")
         elif dcpa < 3.0:
             print("\n  ⚠️ [警告] 预测会遇距离过近，持续监控。")
         else:
