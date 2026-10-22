@@ -52,14 +52,13 @@ else:
             )
             
             min_idx = merged['distance_nm'].idxmin()
-            dcpa = merged.loc[min_idx, 'distance_nm']
+            min_separation = merged.loc[min_idx, 'distance_nm']
             
-            # 只有 DCPA 小于 10 海里，才是会遇
-            if dcpa < 10: 
+            if min_separation < 10: 
                 min_row = merged.loc[min_idx]
-                print(f"\n⚠️ 找到会遇！MMSI: {mmsi1} 和 {mmsi2}")
-                print(f"最近会遇距离 (DCPA): {dcpa:.2f} 海里")
-                print(f"时间: {min_row['BaseDateTime']}")
+                print(f"\n⚠️ 找到会遇！MMSI: {mmsi1} and {mmsi2}")
+                print(f"Observed Minimum Separation: {min_separation:.2f} nm")
+                print(f"time: {min_row['BaseDateTime']}")
                 
                 center_lat = (min_row['LAT_1'] + min_row['LAT_2']) / 2
                 center_lon = (min_row['LON_1'] + min_row['LON_2']) / 2
@@ -69,7 +68,7 @@ else:
                 folium.PolyLine(ship2[['LAT', 'LON']].values, color='red', weight=3, tooltip=f"船2: {mmsi2}").add_to(m)
                 folium.Marker(
                     [min_row['LAT_1'], min_row['LON_1']], 
-                    popup=f"DCPA: {dcpa:.2f} nm", icon=folium.Icon(color='orange', icon='warning-sign')
+                    popup=f"min_separation: {min_separation:.2f} nm", icon=folium.Icon(color='orange', icon='warning-sign')
                 ).add_to(m)
                 
                 m.save("collision_risk.html")
