@@ -3,7 +3,7 @@ import time
 import numpy as np
 import os
 
-# 1. 引入刚才写的雷达标绘算法
+# 1. 
 def calc_tcpa_dcpa(lat1, lon1, sog1, cog1, lat2, lon2, sog2, cog2):
     lat_avg = np.radians((lat1 + lat2) / 2)
     x = (lon2 - lon1) * 60 * np.cos(lat_avg)
@@ -27,14 +27,14 @@ def calc_tcpa_dcpa(lat1, lon1, sog1, cog1, lat2, lon2, sog2, cog2):
         dcpa = np.sqrt((x + v_rx * tcpa_hours)**2 + (y + v_ry * tcpa_hours)**2)
         return dcpa, tcpa_hours * 60
 
-# 2. 读取数据 (过滤出真在靠近的两艘船)
+# 2. 
 print("正在连接 AIS 数据网关...")
 df = pd.read_csv('data7.csv', nrows=300000)
 df = df.dropna(subset=['LAT', 'LON', 'SOG', 'COG', 'BaseDateTime'])
 df_moving = df[df['SOG'] > 5].copy()
 df_moving['BaseDateTime'] = pd.to_datetime(df_moving['BaseDateTime'])
 
-# 我们直接用之前验证过有交集的船号
+# 用之前验证过有交集的船号
 target_mmsi_1 = 319706000
 target_mmsi_2 = 244561000
 
@@ -56,7 +56,7 @@ else:
         merged.at[idx, 'DCPA'] = d
         merged.at[idx, 'TCPA'] = t
 
-    # 找到 TCPA > 0 且 DCPA 最小的那个时间点 (即即将相撞的惊险时刻)
+    # 找到 TCPA > 0 且 DCPA 最小的那个时间点 
     valid_targets = merged[(merged['TCPA'] > 0) & (merged['TCPA'] < 60)]
     if len(valid_targets) > 0:
         target_idx = valid_targets['DCPA'].idxmin()
@@ -80,7 +80,7 @@ else:
             row['LAT_2'], row['LON_2'], row['SOG_2'], row['COG_2']
         )
         
-        # 计算当前距离（用于展示）
+        # 计算当前距离
         lat_avg = np.radians((row['LAT_1'] + row['LAT_2']) / 2)
         current_dist = np.sqrt(((row['LON_2']-row['LON_1'])*60*np.cos(lat_avg))**2 + ((row['LAT_2']-row['LAT_1'])*60)**2)
         
@@ -95,7 +95,7 @@ else:
         print(f"  预测最近距离 (DCPA): {dcpa:.2f} 海里")
         print(f"  预测到达时间 (TCPA): {tcpa:.1f} 分钟")
         
-        # 结合 DCPA 和 TCPA 进行预警（这才是最专业的！）
+        # 结合 DCPA 和 TCPA 进行预警
         if dcpa < 1.0 and tcpa < 20.0:
             print("\n 🚨 [碰撞警报] DCPA < 1海里 且 TCPA < 20分钟！")
             print(" [Control Interface] Safety-control module (e.g., CBF) would be activated.")
@@ -105,4 +105,4 @@ else:
             print("\n  ✅️ [安全] 航行状态安全。")
             
         print("="*50)
-        time.sleep(0.5) # 快速刷新
+        time.sleep(0.5) 
