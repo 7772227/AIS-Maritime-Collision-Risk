@@ -3,7 +3,7 @@
 import numpy as np
 
 def calc_tcpa_dcpa(lat1, lon1, sog1, cog1, lat2, lon2, sog2, cog2):
-    # 1. 将经纬度差转换为海里 (粗略近似)
+    # 1. 将经纬度差转换为海里 
     lat_avg = np.radians((lat1 + lat2) / 2)
     x = (lon2 - lon1) * 60 * np.cos(lat_avg) # 东西向相对距离
     y = (lat2 - lat1) * 60                  # 南北向相对距离
@@ -40,7 +40,7 @@ def calc_tcpa_dcpa(lat1, lon1, sog1, cog1, lat2, lon2, sog2, cog2):
         
     return dcpa, tcpa_minutes
 
-# --- 测试代码 ---
+# 测试
 if __name__ == "__main__":
     print("开始进行雷达标绘计算测试...")
     
