@@ -74,7 +74,13 @@ python src/iot_stream_sim.py
 python CBF_Demo/cbf_demo.py
 
 ## Future Work
-1. Edge vs. Cloud Baseline: Conduct experiments comparing communication overhead and end-to-end warning latency between local edge processing and cloud-based processing under simulated maritime network constraints .
-2. Vessel Dynamics & HOCBF: Upgrade the CBF model to account for vessel inertia (double integrator) and implement High-Order CBF (HOCBF).
-3. COLREGs Integration: Encode maritime right-of-way rules as safety constraints within the CBF-QP framework.
-4. IoT Messaging: Transition the stream simulation to a real MQTT-based publisher/subscriber architecture.
+1. Edge vs. Cloud Baseline:
+Compare edge-side and cloud-side AIS risk assessment in terms of:
+ communication overhead;
+ processing latency;
+ end-to-end warning latency; 
+ transmitted data volume.
+2. Simulated Maritime Network Conditions: Evaluate the system under different synthetic network latency and bandwidth conditions.
+3. MQTT-Based Maritime IoT Messaging: Extend the current AIS replay prototype using a publish/subscribe architecture for vessel-edge-shore communication.
+4. Vessel-Edge-Cloud Collaborative Computing: Explore how maritime sensing and risk-assessment tasks can be distributed among vessels, near-shore edge nodes, and cloud servers.
+5. Safety-Control Integration: Further integrate risk assessment with vessel dynamics, CBF-based safety control, and COLREGs-aware maneuvering.
