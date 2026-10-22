@@ -26,7 +26,7 @@ The algorithm cleans 300,000+ historical records and uses the Haversine formula 
 To address detected collision risks, I implemented a Control Barrier Function (CBF-QP) safety filter. The simulation demonstrates a vessel (blue trajectory) correcting its path to avoid a danger zone (red circle). More mathematical details can be found in `CBF_Demo/README.md`.
 
 ### Part 3: IoT Real-time Stream Simulation (`src/iot_stream_sim.py`)
-Simulates an Edge Node receiving AIS data sequentially via VHF. The script calculates dynamic distances on the fly and triggers warnings when the distance falls below the safety threshold (8 nm), demonstrating the feasibility of lightweight edge computing.
+Simulates an Edge Node receiving AIS data sequentially via VHF. The script calculates dynamic distances on the fly and triggers warnings when the distance falls below the safety threshold (8 nm), Edge-oriented AIS Stream Processing Simulation.（The current implementation replays historical AIS records sequentially to emulate online processing. It does not yet model a real communication network or physical edge device.）
 
 ### Part 4: TCPA Calculation & Radar Plotting (`src/tcpa_calculator.py`)
 Beyond DCPA, I implemented the standard Maritime Radar Plotting algorithm. By decomposing SOG and COG into relative velocity vectors, the system predicts the TCPA in real-time. (If vessels are on a collision course, it predicts DCPA of 0.00 nm and triggers a severe warning).
