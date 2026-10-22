@@ -1,3 +1,5 @@
+# Predictive DCPA/TCPA: Uses relative-motion vectors derived from SOG and COG to estimate the predicted closest point of approach.
+
 import numpy as np
 
 def calc_tcpa_dcpa(lat1, lon1, sog1, cog1, lat2, lon2, sog2, cog2):
