@@ -88,13 +88,13 @@ Compare edge-side and cloud-side AIS risk assessment in terms of:
 ### Edge vs. Cloud Baseline Comparison
 To validate the necessity of edge computing, I simulated a 100ms maritime network latency and compared the communication overhead and end-to-end latency between Cloud processing and Edge processing.
 
-**1. Normal Scenario (No Alerts Triggered)**
+#### 1. Normal Scenario (No Alerts Triggered)
 Under normal navigation, the Edge node processes all AIS data locally without transmitting raw data, resulting in **zero network bandwidth consumption**.
 
 ![Edge vs Cloud No Alert](docs/edge_vs_cloud_no_alert.png)
 *Figure 5a: Edge processing avoids unnecessary data transmission when vessels are safe.*
 
-**2. Risk Scenario (Alerts Triggered)**
+#### 2. Risk Scenario (Alerts Triggered)
 When the threshold is exceeded, the Edge node only transmits lightweight alert messages instead of raw data. This significantly reduces bandwidth overhead while maintaining near-zero warning latency.
 
 ![Edge vs Cloud With Alert](docs/edge_vs_cloud_with_alert.png)
