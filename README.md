@@ -85,17 +85,17 @@ Compare edge-side and cloud-side AIS risk assessment in terms of:
 4. Vessel-Edge-Cloud Collaborative Computing: Explore how maritime sensing and risk-assessment tasks can be distributed among vessels, near-shore edge nodes, and cloud servers.
 5. Safety-Control Integration: Further integrate risk assessment with vessel dynamics, CBF-based safety control, and COLREGs-aware maneuvering.
 
-### Edge vs. Cloud Baseline Comparison
-To validate the necessity of edge computing, I simulated a 100ms maritime network latency and compared the communication overhead and end-to-end latency between Cloud processing and Edge processing.
+### Edge vs. Cloud Baseline Comparison (v2)
 
-#### 1. Normal Scenario (No Alerts Triggered)
-Under normal navigation, the Edge node processes all AIS data locally without transmitting raw data, resulting in **zero network bandwidth consumption**.
+To validate the necessity of edge computing, I simulated a synthetic network environment and compared the communication overhead and warning latency between Cloud and Edge architectures. 
 
-![Edge vs Cloud Safe](docs/edge_vs_cloud_baseline_safe.png)
-*Figure 5a: Edge processing avoids unnecessary data transmission when vessels are safe.*
+*Note: The simulation uses Discrete Event Simulation logic to avoid OS scheduling noise. Communication overhead is approximated using serialized application-layer payload size.*
 
-#### 2. Risk Scenario (Alerts Triggered)
-When the threshold is exceeded, the Edge node only transmits lightweight alert messages instead of raw data. This significantly reduces bandwidth overhead while maintaining near-zero warning latency.
+#### Statistical Summary
+The table below shows the warning latency (Mean, Median, P95) across different simulated network delays (20ms to 500ms):
 
-![Edge vs Cloud Risk](docs/edge_vs_cloud_baseline_risk.png)
-*Figure 5b: Under the current synthetic network-delay setting, local edge processing reduces the modeled warning latency by avoiding the uplink delay required by the cloud baseline, and significantly reduces application-layer payload size..*
+![Edge vs Cloud V2 Results](docs/edge_vs_cloud_v2_results.png)
+
+**Key Findings:**
+- **Latency:** Under the current synthetic network-delay setting, local edge processing reduces the modeled warning latency by avoiding the uplink delay required by the cloud baseline. While Cloud latency increases linearly with network delay, Edge local processing remains at near-zero latency (~0.02ms).
+- **Communication Overhead:** Edge processing only transmits lightweight alert messages during risk events, resulting in significantly lower payload bytes compared to transmitting raw AIS data continuously.
