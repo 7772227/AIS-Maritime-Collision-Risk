@@ -91,11 +91,11 @@ To validate the necessity of edge computing, I simulated a 100ms maritime networ
 #### 1. Normal Scenario (No Alerts Triggered)
 Under normal navigation, the Edge node processes all AIS data locally without transmitting raw data, resulting in **zero network bandwidth consumption**.
 
-![Edge vs Cloud No Alert](docs/edge_vs_cloud_no_alert.png)
+![Edge vs Cloud Safe](docs/edge_vs_cloud_baseline_safe.png)
 *Figure 5a: Edge processing avoids unnecessary data transmission when vessels are safe.*
 
 #### 2. Risk Scenario (Alerts Triggered)
 When the threshold is exceeded, the Edge node only transmits lightweight alert messages instead of raw data. This significantly reduces bandwidth overhead while maintaining near-zero warning latency.
 
-![Edge vs Cloud With Alert](docs/edge_vs_cloud_with_alert.png)
-*Figure 5b: Edge processing achieves ultra-low latency and high bandwidth efficiency during collision risks.*
+![Edge vs Cloud Risk](docs/edge_vs_cloud_baseline_risk.png)
+*Figure 5b: Under the current synthetic network-delay setting, local edge processing reduces the modeled warning latency by avoiding the uplink delay required by the cloud baseline, and significantly reduces application-layer payload size..*
